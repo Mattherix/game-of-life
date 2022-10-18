@@ -1,4 +1,4 @@
-const SIZE: usize = 5;
+const SIZE: usize = 20;
 
 fn get_matrix(row: usize, column: usize) -> Vec<Vec<bool>> {
     let mut matrix = Vec::new();
@@ -14,16 +14,27 @@ fn get_matrix(row: usize, column: usize) -> Vec<Vec<bool>> {
     matrix
 }
 
-fn main() {
-    let matrix = get_matrix(SIZE, SIZE);
-    println!("{}", matrix.len());
+fn print_matrix(matrix: &Vec<Vec<bool>>) {
+    println!("row(s): {}\ncolumn(s): {}\n", matrix.len(), matrix[0].len());
 
     for i in 0..matrix.len() {
         for j in 0..matrix[0].len() {
-            print!("{} ", matrix[i][j]);
+            if matrix[i][j] {
+                print!("██");
+            } else {
+                print!("░░");
+            }
+
         }
         println!();
     }
+}
+
+fn main() {
+    let mut matrix = get_matrix(SIZE, SIZE);
+    matrix[SIZE / 2][SIZE /2] = true;
+
+    print_matrix(&matrix);
 }
 
 #[cfg(test)]
