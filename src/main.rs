@@ -41,12 +41,75 @@ impl Game {
             println!();
         }
     }
+
+    fn evolve(&self) {
+        unimplemented!()
+    }
+    
+    fn count_neighbors(&self, row: usize, column: usize) -> usize {
+        let mut count = 0;
+
+        let a;
+        if row == 0 {
+            a = 1;
+        } else {
+            a = 0;
+        }
+
+        let b;
+        if row == (self.grid.len() - 1) {
+            b = 1;
+        } else {
+            b = 2;
+        }
+
+        let c;
+        if column == 0 {
+            c = 1;
+        } else {
+            c = 0;
+        }
+
+        let d;
+        if column == (self.grid[0].len() - 1) {
+            d = 1;
+        } else {
+            d = 2;
+        }
+
+        for i in a..=b {
+            for j in c..=d {
+                if self.grid[row + i - 1][column + j - 1] {
+                    count += 1;
+                }
+            }
+        }
+
+        if self.grid[row][column] {
+            count -= 1;
+        }
+        
+        dbg!(count);
+
+        count
+    }
+
 }
 
 
 fn main() {
     let mut game = Game::new(SIZE, SIZE);
     game.grid[SIZE / 2][SIZE /2] = true;
+
+    let cell = (SIZE / 2, SIZE - 1);
+
+    game.grid[cell.0 - 1][cell.1 - 1] = true;
+    game.grid[cell.0][cell.1 - 1] = true;
+    game.grid[cell.0 + 1][cell.1 - 1] = true;
+    game.grid[cell.0 - 1][cell.1] = true;
+    game.grid[cell.0 + 1][cell.1] = true;
+
+    println!("({}, {}) => {}", cell.0, cell.1, game.count_neighbors(cell.0, cell.1));
 
     game.show();
 }
