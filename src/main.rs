@@ -134,4 +134,94 @@ mod tests {
             assert_eq!(game.grid[index].len(), COLUMN_LENGTH);
         }
     }
+    
+    #[test]
+    fn test_count_neighbors_no_neigtbors() {
+        let game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+
+        assert_eq!(game.count_neighbors(ROW_LENGTH / 2, COLUMN_LENGTH / 2), 0);
+    }
+
+    #[test]
+    fn test_count_neighbors_one_neigtbor_center() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let center = ((ROW_LENGTH / 2), (COLUMN_LENGTH / 2));
+
+        game.grid[center.0][center.1 - 1] = true;
+
+        assert_eq!(game.count_neighbors(center.0, center.1), 1);
+    }
+
+    #[test]
+    fn test_count_neighbors_multiple_neigtbors_center() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let center = ((ROW_LENGTH / 2), (COLUMN_LENGTH / 2));
+
+        game.grid[center.0 - 1][center.1 - 1] = true;
+        game.grid[center.0][center.1 - 1] = true;
+        game.grid[center.0 + 1][center.1 - 1] = true;
+        game.grid[center.0 - 1][center.1] = true;
+        game.grid[center.0 + 1][center.1] = true;
+        game.grid[center.0 - 1][center.1 + 1] = true;
+        game.grid[center.0][center.1 + 1] = true;
+        game.grid[center.0 + 1][center.1 + 1] = true;
+
+        assert_eq!(game.count_neighbors(center.0, center.1), 8);
+    }
+
+    #[test]
+    fn test_count_neighbors_smallest_row() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (0, (COLUMN_LENGTH / 2));
+
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0 + 1][cell.1 + 1] = true;
+
+        assert_eq!(game.count_neighbors(cell.0, cell.1), 5);
+    }
+
+    #[test]
+    fn test_count_neighbors_hightest_row() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH - 1, (COLUMN_LENGTH / 2));
+
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+
+        assert_eq!(game.count_neighbors(cell.0, cell.1), 5);
+    }
+
+    #[test]
+    fn test_count_neighbors_smallest_column() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, 0);
+
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+        game.grid[cell.0 + 1][cell.1 + 1] = true;
+
+        assert_eq!(game.count_neighbors(cell.0, cell.1), 5);
+    }
+
+    #[test]
+    fn test_count_neighbors_hightest_column() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH - 1);
+
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+
+        assert_eq!(game.count_neighbors(cell.0, cell.1), 5);
+    }
 }
