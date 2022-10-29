@@ -231,4 +231,131 @@ mod tests {
 
         assert_eq!(game.count_neighbors(cell.0, cell.1), 5);
     }
+
+    #[test]
+    fn test_rules_zero_neighbor() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_one_neighbor() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_two_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), true);
+    }
+
+    #[test]
+    fn test_rules_three_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+
+
+        assert_eq!(game.rules(cell.0, cell.1), true);
+    }
+
+    #[test]
+    fn test_rules_four_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_five_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_six_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1 - 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_seven_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
+
+    #[test]
+    fn test_rules_height_neighbors() {
+        let mut game = Game::new(ROW_LENGTH, COLUMN_LENGTH);
+        let cell = (ROW_LENGTH / 2, COLUMN_LENGTH / 2);
+
+        game.grid[cell.0][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 - 1] = true;
+        game.grid[cell.0 - 1][cell.1] = true;
+        game.grid[cell.0 - 1][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 + 1] = true;
+        game.grid[cell.0][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1 - 1] = true;
+        game.grid[cell.0 + 1][cell.1] = true;
+        game.grid[cell.0 + 1][cell.1 + 1] = true;
+
+        assert_eq!(game.rules(cell.0, cell.1), false);
+    }
 }
