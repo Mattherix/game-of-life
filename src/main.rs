@@ -42,10 +42,17 @@ impl Game {
         }
     }
 
-    fn evolve(&self) {
+    fn evolve(&mut self) {
         unimplemented!()
     }
     
+    fn rules(&self, row: usize, column: usize) -> bool {
+        match self.count_neighbors(row, column) {
+            2 | 3 => true,
+            _ => false
+        }
+    }
+
     fn count_neighbors(&self, row: usize, column: usize) -> usize {
         let mut count = 0;
 
