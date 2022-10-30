@@ -43,7 +43,17 @@ impl Game {
     }
 
     fn evolve(&mut self) {
-        unimplemented!()
+        let mut new_grid = Vec::new();
+
+        for r in 0..self.grid.len() {
+            let mut new_row = Vec::new();
+            for c in 0..self.grid[0].len() {
+                new_row.push(self.rules(r, c));
+            }
+            new_grid.push(new_row);
+        }
+
+        self.grid = new_grid;
     }
     
     fn rules(&self, row: usize, column: usize) -> bool {
